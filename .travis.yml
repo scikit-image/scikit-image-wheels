@@ -13,6 +13,7 @@ install:
     - pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six
     - cd scikit-image
     - python setup.py bdist_wheel
+    - rename_wheels dist
     - pip install dist/*.whl
     - cd ..
 
