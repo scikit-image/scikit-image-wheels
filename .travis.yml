@@ -19,7 +19,7 @@ install:
 
 script:
     # These packages required for tests
-    - pip install -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
+    - pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
     # tests broken on python 3.4 for earlier numpy
     - if [ "${VERSION:0:3}" == "3.4" ]; then pip install -U numpy; fi
     - mkdir tmp_for_test
