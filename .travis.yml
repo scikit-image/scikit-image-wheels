@@ -16,7 +16,8 @@ install:
 - cd ..
 script:
 - pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
-- if [ "${VERSION:0:3}" == "3.4" ]; then pip install -U numpy; fi
+  # Segfaults for old numpy and 2.7; syntax errors for numpy and 3.4
+- if [ "${VERSION:0:3}" != "3.3" ]; then pip install -U numpy; fi
 - mkdir tmp_for_test
 - cd tmp_for_test
 - nosetests --exe -v skimage
