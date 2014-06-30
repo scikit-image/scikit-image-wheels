@@ -1,38 +1,31 @@
 language:
-  - objective-c
-
+- objective-c
 env:
   matrix:
-    - VERSION=2.7.7 NUMPY_VERSION=1.6.0
-    - VERSION=3.3.5 NUMPY_VERSION=1.7.1
-    - VERSION=3.4.1 NUMPY_VERSION=1.7.1
-
+  - VERSION=2.7.7 NUMPY_VERSION=1.6.0
+  - VERSION=3.3.5 NUMPY_VERSION=1.7.1
+  - VERSION=3.4.1 NUMPY_VERSION=1.7.1
 install:
-    - source terryfy/travis_tools.sh
-    - get_python_environment macpython $VERSION venv
-    - pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six
-    - cd scikit-image
-    - python setup.py bdist_wheel
-    - rename_wheels dist
-    - pip install dist/*.whl
-    - cd ..
-
+- source terryfy/travis_tools.sh
+- get_python_environment macpython $VERSION venv
+- pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six
+- cd scikit-image
+- python setup.py bdist_wheel
+- rename_wheels dist
+- pip install dist/*.whl
+- cd ..
 script:
-    # These packages required for tests
-    - pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
-    # tests broken on python 3.4 for earlier numpy
-    - if [ "${VERSION:0:3}" == "3.4" ]; then pip install -U numpy; fi
-    - mkdir tmp_for_test
-    - cd tmp_for_test
-    - nosetests --exe -v skimage
-    - cd ..
-
+- pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
+- if [ "${VERSION:0:3}" == "3.4" ]; then pip install -U numpy; fi
+- mkdir tmp_for_test
+- cd tmp_for_test
+- nosetests --exe -v skimage
+- cd ..
 before_deploy: cd scikit-image/dist
 deploy:
   provider: cloudfiles
   username: travis-worker
   api_key:
-    secure: U+rKEiR6sQ+vsTJt3MuqqZwWvPV4gkjnQvzeR6cP9JZpfvkKuaa+vcgj7OngZ69DUgFTzRiTnFAxCbArGpDUkbP9V+kX5UgkePMdxhK+j9V0UOo8g+QwZtlqmV78pTXemWndwbqcy0uyfxuBpxhPXGSAHuzk+pZUbhH2zSEfh0s=
+    secure: GfaJ8Y2IYwzkXqHh2rPsDZUJCpMRguJoEdWIIYwH3xyIpt/RiMiicNlMGWLujBZygTKP/3eGcQb8ZNpmkbtaICEMa+3TkySk9mzPwqkYcuyCJAa9Je6vct8Vh53jE6FZ9i0VB7cA0DnTsyFX+4eXHIDl9v4XI1n9MTTfeNT5lVw=
   region: ORD
   container: wheels
-  skip_cleanup: true
