@@ -16,7 +16,6 @@ install:
 - cd ..
 script:
 - pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
-  # Segfaults for old numpy and 2.7; syntax errors for numpy and 3.4
 - if [ "${VERSION:0:3}" != "3.3" ]; then pip install -U numpy; fi
 - mkdir tmp_for_test
 - cd tmp_for_test
@@ -27,7 +26,7 @@ deploy:
   provider: cloudfiles
   username: travis-worker
   api_key:
-    secure: GfaJ8Y2IYwzkXqHh2rPsDZUJCpMRguJoEdWIIYwH3xyIpt/RiMiicNlMGWLujBZygTKP/3eGcQb8ZNpmkbtaICEMa+3TkySk9mzPwqkYcuyCJAa9Je6vct8Vh53jE6FZ9i0VB7cA0DnTsyFX+4eXHIDl9v4XI1n9MTTfeNT5lVw=
+    secure: GSgkzgY1cq7mzp0oJpgbLuyY9N0nZTEH/i7OVljSaNv9CecWFaHgfRG/ErIyBx0BsL1X9FXra1YDpBj6PD0rvwpI3KG+z6pNn1jCf4caUij/PljaQaEUSPWdU0aM+BKirklpH1wM04mc9ESp7yu0Zk2CAuANiKjYq9MqO0gcoRU=
   region: ORD
   container: wheels
   skip_cleanup: true
