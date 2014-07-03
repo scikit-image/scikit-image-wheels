@@ -12,8 +12,8 @@ install:
 - pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six
 - cd scikit-image
 - if [ -n "$LATEST_TAG" ]; then
-  git fetch ; # fetch branches
-  git fetch --tags ; # fetch tags not on branches
+  git fetch ;
+  git fetch --tags ;
   git checkout `../terryfy/git-latest-tag` ;
   fi
 - python setup.py bdist_wheel
