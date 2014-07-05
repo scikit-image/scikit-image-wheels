@@ -21,7 +21,7 @@ install:
 - pip install dist/*.whl
 - cd ..
 script:
-- pip install --no-index -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
+- pip install -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
 - if [ "${VERSION:0:3}" != "3.3" ]; then pip install -U numpy; fi
 - mkdir tmp_for_test
 - cd tmp_for_test
