@@ -9,7 +9,7 @@ env:
 install:
 - source terryfy/travis_tools.sh
 - get_python_environment macpython $VERSION venv
-- pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six
+- pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six matplotlib networkx
 - if [ -n "$LATEST_TAG" ]; then checkout_closest_tag scikit-image; fi
 - cd scikit-image
 - python setup.py bdist_wheel
@@ -17,7 +17,7 @@ install:
 - pip install dist/*.whl
 - cd ..
 script:
-- pip install -f $NIPY_WHEELHOUSE nose scipy pillow matplotlib
+- pip install -f $NIPY_WHEELHOUSE nose scipy pillow
 - if [ "${VERSION:0:3}" != "3.3" ]; then pip install -U numpy; fi
 - mkdir tmp_for_test
 - cd tmp_for_test
