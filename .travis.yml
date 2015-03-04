@@ -9,7 +9,7 @@ env:
 install:
 - source terryfy/travis_tools.sh
 - get_python_environment macpython $VERSION venv
-- pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six matplotlib networkx
+- pip install -f $NIPY_WHEELHOUSE numpy==$NUMPY_VERSION cython wheel six matplotlib networkx scipy
 - if [ -n "$LATEST_TAG" ]; then checkout_closest_tag scikit-image; fi
 - cd scikit-image
 - python setup.py bdist_wheel
