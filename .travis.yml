@@ -19,6 +19,9 @@ install:
       checkout_commit $REPO_DIR $BUILD_COMMIT;
   fi
 - cd $REPO_DIR
+# Use clang to avoid warnings with Pyton 3.5 headers
+- export CC=clang
+- export CXX=clang++
 - python setup.py bdist_wheel
 - delocate-listdeps dist/*.whl # lists library dependencies
 - delocate-wheel dist/*.whl # copies library dependencies into wheel
