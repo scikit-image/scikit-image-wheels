@@ -37,6 +37,8 @@ script:
   fi
 - mkdir tmp_for_test
 - cd tmp_for_test
+# No figure windows for mpl; quote to hide : from travis-ci yaml parsing
+- 'echo "backend : agg" > matplotlibrc'
 - nosetests --exe -v skimage
 - cd ..
 before_deploy: cd $REPO_DIR/dist
