@@ -60,9 +60,8 @@ Which scikit-image commit does the repository build?
 ====================================================
 
 The `scikit-image-wheels` repository will build the commit specified in the
-``BUILD_COMMIT`` at the top of the ``.travis.yml`` and ``appveyor.yml`` files.
-This can be any naming of a commit, including branch name, tag name or commit
-hash.
+``BUILD_COMMIT`` at the top of the ``.travis.yml`` file.  This can be any
+naming of a commit, including branch name, tag name or commit hash.
 
 Uploading the built wheels to pypi
 ==================================
@@ -87,23 +86,42 @@ You will typically have a directory on your machine where you store wheels,
 called a `wheelhouse`.   The typical call for `wheel-uploader` would then
 be something like::
 
-    wheel-uploader -v -w ~/wheelhouse -t macosx scikit-image 0.12.3
-    wheel-uploader -v -w ~/wheelhouse -t manylinux1 scikit-image 0.12.3
-    wheel-uploader -v -w ~/wheelhouse -t win scikit-image 0.12.3
+    CDN_URL=https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
+    wheel-uploader -r warehouse -u $CDN_URL -v -w ~/wheelhouse -t macosx scikit-image 0.12.3
+    wheel-uploader -r warehouse -u $CDN_URL -v -w ~/wheelhouse -t manylinux1 scikit-image 0.12.3
 
 where:
 
-* `-v` means give verbose messages;
-* `-w ~/wheelhouse` means download the wheels from https://wheels.scipy.org to
-  the directory `~/wheelhouse`;
-* `scikit-image` is the root name of the wheel(s) to download / upload;
-* `0.12.3` is the version to download / upload.
+* ``-v`` means give verbose messages;
+* ``-w ~/wheelhouse`` means download the wheels from https://wheels.scipy.org
+  to the directory ``~/wheelhouse``;
+* ``-r warehouse`` uses the upcoming Warehouse PyPI server (it is more
+  reliable than the current PyPI service for uploads);
+* ``scikit-image`` is the root name of the wheel(s) to download / upload;
+* ``0.12.3`` is the version to download / upload.
 
-So, in this case, `wheel-uploader` will download all wheels starting with
-`scikit-image-0.12.3-` from http://wheels.scipy.org to `~/wheelhouse`, then upload
-them to pypi.
+In order to use the Warehouse PyPI server, you will need something like this
+in your ``~/.pypirc`` file::
 
-Of course, you will need permissions to upload to pypi, for this to work.
+    [distutils]
+    index-servers =
+        pypi
+        warehouse
+
+    [pypi]
+    username:your_user_name
+    password:your_password
+
+    [warehouse]
+    repository: https://upload.pypi.io/legacy/
+    username: your_user_name
+    password: your_password
+
+So, in this case, ``wheel-uploader`` will download all wheels starting with
+``scikit-image-0.12.3-`` from http://wheels.scipy.org to ``~/wheelhouse``,
+then upload them to PyPI.
+
+Of course, you will need permissions to upload to PyPI, for this to work.
 
 .. _manylinux1: https://www.python.org/dev/peps/pep-0513
 .. _twine: https://pypi.python.org/pypi/twine
