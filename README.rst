@@ -102,7 +102,7 @@ where:
 * ``-w ~/wheelhouse`` means download the wheels from to the local directory
   ``~/wheelhouse``.
 
-``scikit-image`` is the root name of the wheel(s) to download / upload, and
+``scikit_image`` is the root name of the wheel(s) to download / upload, and
 ``0.12.3`` is the version to download / upload.
 
 In order to use the Warehouse PyPI server, you will need something like this
