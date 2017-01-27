@@ -9,7 +9,7 @@ The travis-ci interface for the builds is
 https://travis-ci.org/MacPython/scikit-image-wheels
 
 The driving github repository is
-https://github.com/MacPython/scikit-image-wheels
+https://github.com/scikit-image/scikit-image-wheels
 
 How it works
 ============
