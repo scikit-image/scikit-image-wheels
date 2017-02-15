@@ -6,7 +6,7 @@ We automate wheel building using this custom github repository that builds on
 the travis-ci OSX machines and the travis-ci Linux machines.
 
 The travis-ci interface for the builds is
-https://travis-ci.org/MacPython/scikit-image-wheels
+https://travis-ci.org/scikit-image/scikit-image-wheels
 
 The driving github repository is
 https://github.com/scikit-image/scikit-image-wheels
