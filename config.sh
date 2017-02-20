@@ -12,9 +12,7 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    local pip_args="--find-links $EXTRA_WHEELS_URL"
-    [ -n "$MANYLINUX_URL" ] && pip_args="$pip_args --find-links $MANYLINUX_URL"
-    echo "$pip_args"
+    echo "--find-links $EXTRA_WHEELS_URL"
 }
 
 function run_tests {
