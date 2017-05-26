@@ -1,6 +1,7 @@
 env:
   global:
       - REPO_DIR="scikit-image"
+      # Also see DAILY_COMMIT below
       - BUILD_COMMIT=v0.13.0
       - PLAT=x86_64
       - UNICODE_WIDTH=32
@@ -11,6 +12,8 @@ env:
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure: "VlyOA2JUyOypYAA0/wAD30STBOFhpzAr4PJ4R+P4Rb62M4/j1L9p7SKZepLt2Atjw9C20EceGFyDhHqBRjnLx7JO6+6tF4C5b1HutsaNYlE4bg1mEwcgg3no+lZQjmhOoK3krBTu3cmULhtE0Xyc4FdmrLfIl5u7yvU+Viq6I1w="
+      # Commit when running from daily branch
+      - DAILY_COMMIT=master
 
 language: python
 # Default Python version is usually 2.7
@@ -93,6 +96,13 @@ matrix:
         - NP_TEST_DEP=numpy==1.12.0
 
 before_install:
+    - if [ "$TRAVIS_BRANCH" == "daily" ]; then
+          CONTAINER="pre-release";
+          BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
+      else
+          CONTAINER=wheels;
+          UPLOAD_ARGS="--no-update-index";
+      fi
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
     - TEST_DEPENDS="$NP_TEST_DEP nose $GEN_DEPS"
     - source multibuild/common_utils.sh
@@ -112,5 +122,5 @@ after_success:
     - pip install wheelhouse-uploader
     - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
-          --no-update-index
-          wheels
+          $UPLOAD_ARGS
+          $CONTAINER
