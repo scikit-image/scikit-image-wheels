@@ -2,6 +2,11 @@
 # Windows
 
 environment:
+  REPO_DIR: scikit-image
+  WHEELHOUSE_UPLOADER_USERNAME: appveyor-worker
+  # https://www.appveyor.com/docs/build-configuration/#secure-variables
+  WHEELHOUSE_UPLOADER_SECRET:
+    secure: TBD
   matrix:
     - PYTHON: C:\Python27
     - PYTHON: C:\Python27-x64
@@ -16,16 +21,6 @@ matrix:
 install:
   - ECHO "Filesystem root:"
   - ps: "ls \"C:/\""
-
-  # If there is a newer build queued for the same PR, cancel this one.
-  # The AppVeyor 'rollout builds' option is supposed to serve the same
-  # purpose but is problematic because it tends to cancel builds pushed
-  # directly to master instead of just PR builds.
-  # credits: JuliaLang developers.
-  - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
-        https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
-        Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
-        throw "There are newer queued builds for this pull request, failing early." }
 
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "python -m pip install -U pip"
@@ -42,6 +37,7 @@ install:
   # Install the build and runtime dependencies of the project.
   # The --pre flag is necessary to grab a SciPy wheel, which is in
   # pre-release at the time of writing (03-10-2017)
+  - cd %REPO_DIR%
   - pip install --pre -r requirements.txt
   - pip install -r requirements/build.txt
   - python setup.py bdist_wheel bdist_wininst
@@ -53,27 +49,15 @@ install:
 # Not a .NET project, we build scikit-image in the install step instead
 build: false
 
-test_script:
-  ## Build the docs
-  #- pip install sphinx pytest-runner sphinx-gallery
-  #- SET PYTHON=%PYTHON%\\python.exe && cd doc && make html
+#test_script:
+  # Tests have already been run in main repo
 
-  # Change to a non-source folder to make sure we run the tests on the
-  # installed library.
-  - "cd C:\\"
-
-    # Use the Agg backend in Matplotlib
-  -  echo backend:Agg > matplotlibrc
-
-  # Run unit tests with pytest
-  - "python -c \"import pytest; import skimage; pytest.main([skimage.pkg_dir])\""
-
-artifacts:
-  # Archive the generated wheel package in the ci.appveyor.com build report.
-  - path: dist\*
-
-#on_success:
-#  - TODO: upload the content of dist/*.whl to a public wheelhouse
+on_success:
+  - pip install wheelhouse-uploader
+  - python -m wheelhouse_uploader upload 
+      --local-folder %REPO_DIR%\\dist
+      --no-update-index
+      wheels
 
 cache:
   # Avoid re-downloading large packages
