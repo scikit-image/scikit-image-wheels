@@ -20,7 +20,11 @@ environment:
     - PYTHON: C:\Python35
     - PYTHON: C:\Python35-x64
     - PYTHON: C:\Python36
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
     - PYTHON: C:\Python36-x64
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
 
 init:
   - "ECHO \"%APPVEYOR_SCHEDULED_BUILD%\""
