@@ -83,7 +83,7 @@ test_script:
   # Check Python version just in case
   - python --version
   # Run unit tests with pytest
-  - python -c "import pytest; import skimage; pytest.main([skimage.pkg_dir])"
+  - pytest --pyargs skimage
   - cd ..
 
 artifacts:
