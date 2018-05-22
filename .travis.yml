@@ -8,6 +8,7 @@ env:
       - NP_BUILD_DEP="numpy==1.11.3"
       - NP_TEST_DEP="numpy==1.11.3"
       - GEN_DEPS="matplotlib networkx scipy pillow==4.1.1"
+      - MANYLINUX_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
