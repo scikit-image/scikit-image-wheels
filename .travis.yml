@@ -30,31 +30,6 @@ matrix:
   include:
     - os: linux
       env:
-        - MB_PYTHON_VERSION=2.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.11.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.11.3
-        - PLAT=i686
-    - os: linux
-      env:
         - MB_PYTHON_VERSION=3.5
         - NP_BUILD_DEP=numpy==1.12.0
         - NP_TEST_DEP=numpy==1.12.0
@@ -75,14 +50,6 @@ matrix:
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.12.0
         - NP_TEST_DEP=numpy==1.12.0
-    - os: osx
-      language: generic
-      env: MB_PYTHON_VERSION=2.7
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.11.3
     - os: osx
       language: generic
       env:
