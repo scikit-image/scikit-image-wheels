@@ -19,5 +19,5 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     echo "backend : agg" > matplotlibrc
-    pytest -v --doctest-modules
+    pytest --doctest-modules --pyargs skimage
 }
