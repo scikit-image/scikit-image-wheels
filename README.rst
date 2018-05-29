@@ -9,7 +9,7 @@ The Travis-CI interface for the builds is
 https://travis-ci.org/scikit-image/scikit-image-wheels
 
 Appveyor interface at
-https://ci.appveyor.com/project/matthew-brett/scikit-image-wheels
+https://ci.appveyor.com/project/scikit-image/scikit-image-wheels
 
 The driving Github repository is
 https://github.com/scikit-image/scikit-image-wheels
