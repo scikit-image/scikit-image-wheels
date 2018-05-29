@@ -1,0 +1,103 @@
+# AppVeyor.com is a Continuous Integration service to build and run tests under
+# Windows
+
+environment:
+  BUILD_COMMIT: master
+  REPO_DIR: scikit-image
+  PKG_NAME: scikit_image
+  WHEELHOUSE_UPLOADER_USERNAME: travis-worker
+  # https://www.appveyor.com/docs/build-configuration/#secure-variables
+  # Encrypted to matthew-brett account, for now.
+  WHEELHOUSE_UPLOADER_SECRET:
+    secure: 9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
+  NP_BUILD_DEP: "numpy==1.11.3"
+  NP_TEST_DEP: "numpy==1.11.3"
+  DAILY_COMMIT: master
+
+  matrix:
+    - PYTHON: C:\Python35
+    - PYTHON: C:\Python35-x64
+    - PYTHON: C:\Python36
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
+    - PYTHON: C:\Python36-x64
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
+
+init:
+  - "ECHO \"%APPVEYOR_SCHEDULED_BUILD%\""
+  - ps: >-
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        $env:CONTAINER = "pre-release"
+        if ($env:DAILY_COMMIT) { $env:BUILD_COMMIT = $env:DAILY_COMMIT }
+      } else {
+        $env:CONTAINER = "wheels"
+        $env:UPLOAD_ARGS = "--no-update-index"
+      }
+
+install:
+  # Prepend newly installed Python to the PATH of this build (this cannot be
+  # done from inside the powershell script as it would require to restart
+  # the parent CMD process).
+  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - python -m pip install -U pip
+
+  # Fix MSVC builds for 64-bit Python. See:
+  # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
+  - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
+
+  # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
+  - pip install wheel==0.26
+  - git submodule update --init
+
+  - cd %REPO_DIR%
+  - git checkout %BUILD_COMMIT%
+
+  # Get stdint headers needed by tifffile.c.
+  - curl https://raw.githubusercontent.com/chemeris/msinttypes/master/inttypes.h -o skimage/external/tifffile/inttypes.h"
+  - curl https://raw.githubusercontent.com/chemeris/msinttypes/master/stdint.h -o skimage/external/tifffile/stdint.h"
+
+  # Install the build dependencies of the project.
+  - pip install %NP_TEST_DEP%
+  - pip install -r requirements\default.txt
+  - pip install -r requirements\build.txt
+  - python setup.py bdist_wheel
+  - cd ..
+
+# Not a .NET project, we build scikit-image in the install step instead
+build: false
+
+test_script:
+  # Install the test / runtime dependencies
+  - pip install %NP_TEST_DEP%
+  - pip install -r %REPO_DIR%\requirements\test.txt
+  # Install the generated wheel package to test it
+  - pip install --pre --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
+  # Change into an innocuous directory and find tests from installation
+  - mkdir for_testing
+  - cd for_testing
+  # Use the Agg backend in Matplotlib
+  - echo backend:Agg > matplotlibrc
+  # Check Python version just in case
+  - python --version
+  # Run unit tests with pytest
+  - pytest --pyargs skimage
+  - cd ..
+
+artifacts:
+  # Archive the generated wheel package in the ci.appveyor.com build report.
+  - path: $(REPO_DIR)\dist\*
+
+on_success:
+  # Upload the generated wheel package to Rackspace
+  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
+  # disable the ssl checks.
+  - pip install wheelhouse-uploader
+  - python -m wheelhouse_uploader upload
+    --no-ssl-check --local-folder=%REPO_DIR%\dist
+    %UPLOAD_ARGS%
+    %CONTAINER%
+
+cache:
+  # Avoid re-downloading large packages
+  - '%APPDATA%\pip\Cache'

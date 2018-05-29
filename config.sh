@@ -1,7 +1,10 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
 
-# Extra wheels URL contains manylinux wheels not available on pypi
+# Extra wheels points to directory with manylinux wheels not available on
+# pypi.  For example, matplotlib does not distribute 32-bit wheels, but we
+# build and upload these via the 32-bit-builds branch of
+# https://github.com/MacPython/matplotlib-wheels
 EXTRA_WHEELS_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
 
 function pre_build {
