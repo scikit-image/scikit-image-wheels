@@ -108,8 +108,7 @@ and then upload them manually to PyPI, or by using twine_.  You can also use a
 script for doing this, housed at :
 https://github.com/MacPython/terryfy/blob/master/wheel-uploader
 
-For the ``wheel-uploader`` script, you'll need twine and `beautiful soup 4
-<bs4>`_.
+For the ``wheel-uploader`` script, you'll need twine and `Beautiful Soup 4`_.
 
 You will typically have a directory on your machine where you store wheels,
 called a `wheelhouse`.   The typical call for `wheel-uploader` would then
@@ -150,6 +149,6 @@ Of course, you will need permissions to upload to PyPI, for this to work.
 
 .. _manylinux1: https://www.python.org/dev/peps/pep-0513
 .. _twine: https://pypi.python.org/pypi/twine
-.. _bs4: https://pypi.python.org/pypi/beautifulsoup4
+.. _Beautiful Soup 4: https://pypi.python.org/pypi/beautifulsoup4
 .. _delocate: https://pypi.python.org/pypi/delocate
 .. _auditwheel: https://pypi.python.org/pypi/auditwheel
