@@ -94,7 +94,7 @@ on_success:
   # disable the ssl checks.
   - pip install wheelhouse-uploader
   - python -m wheelhouse_uploader upload
-    --no-ssl-check --local-folder=%REPO_DIR%\dist
+    --local-folder=%REPO_DIR%\dist
     %UPLOAD_ARGS%
     %CONTAINER%
 
