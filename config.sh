@@ -18,6 +18,12 @@ function pip_opts {
     echo "--find-links $EXTRA_WHEELS_URL"
 }
 
+function build_wheel {
+    # Horrible set of build requirements installs too-recent numpy when using
+    # default pip wheel command
+    build_bdist_wheel $@
+}
+
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
