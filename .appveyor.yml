@@ -2,7 +2,7 @@
 # Windows
 
 environment:
-  BUILD_COMMIT: master
+  BUILD_COMMIT: v0.14.0
   REPO_DIR: scikit-image
   PKG_NAME: scikit_image
   WHEELHOUSE_UPLOADER_USERNAME: travis-worker
@@ -68,6 +68,12 @@ install:
   - pip install -r requirements\default.txt
   - pip install -r requirements\build.txt
   - python setup.py bdist_wheel
+  - ps: |
+      # Upload artifact to Appveyor immediately after build
+      ls dist -r | Foreach-Object {
+          appveyor PushArtifact $_.FullName
+          pip install $_.FullName
+      }
   - cd ..
 
 # Not a .NET project, we build scikit-image in the install step instead
@@ -89,10 +95,6 @@ test_script:
   # Run unit tests with pytest
   - pytest --pyargs skimage
   - cd ..
-
-artifacts:
-  # Archive the generated wheel package in the ci.appveyor.com build report.
-  - path: $(REPO_DIR)\dist\*
 
 on_success:
   # Upload the generated wheel package to Rackspace
