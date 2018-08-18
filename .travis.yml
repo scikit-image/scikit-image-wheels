@@ -28,79 +28,25 @@ matrix:
       # Exclude the default Python 3.5 build
       - python: 3.5
   include:
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.12.0
-        - NP_TEST_DEP=numpy==1.12.0
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.12.0
-        - NP_TEST_DEP=numpy==1.12.0
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.12.0
         - NP_TEST_DEP=numpy==1.12.0
-    - os: osx
-      langugage: generic
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
 
 before_install:
-    - if [ "$TRAVIS_BRANCH" == "master" ]; then
-          CONTAINER="pre-release";
-          BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
-      else
-          CONTAINER=wheels;
-          UPLOAD_ARGS="--no-update-index";
-      fi
+    - CONTAINER=wheels
+    - UPLOAD_ARGS="--no-update-index";
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
     - TEST_DEPENDS="$NP_TEST_DEP nose pytest $GEN_DEPS"
-    - source multibuild/common_utils.sh
-    - source multibuild/travis_steps.sh
-    - before_install
+    - pip install $BUILD_DEPENDS
 
 install:
-    # Maybe get and clean and patch source
-    - clean_code $REPO_DIR $BUILD_COMMIT
-    - build_wheel $REPO_DIR $PLAT
+    - pip install --no-binary=scikit-image scikit-image
 
 script:
-    - install_run $PLAT
+    - echo "In script"
 
 after_success:
     # Upload wheels to Rackspace container
