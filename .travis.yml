@@ -40,6 +40,9 @@ before_install:
     - UPLOAD_ARGS="--no-update-index";
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
     - TEST_DEPENDS="$NP_TEST_DEP nose pytest $GEN_DEPS"
+    - source multibuild/common_utils.sh
+    - source multibuild/travis_steps.sh
+    - before_install
     - pip install $BUILD_DEPENDS
 
 install:
