@@ -2,7 +2,7 @@ env:
   global:
       - REPO_DIR="scikit-image"
       # Also see DAILY_COMMIT below
-      - BUILD_COMMIT=v0.14.0
+      - BUILD_COMMIT=v0.14.1
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.11.3"
@@ -14,7 +14,7 @@ env:
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure: "VlyOA2JUyOypYAA0/wAD30STBOFhpzAr4PJ4R+P4Rb62M4/j1L9p7SKZepLt2Atjw9C20EceGFyDhHqBRjnLx7JO6+6tF4C5b1HutsaNYlE4bg1mEwcgg3no+lZQjmhOoK3krBTu3cmULhtE0Xyc4FdmrLfIl5u7yvU+Viq6I1w="
       # Commit when running from daily branch
-      - DAILY_COMMIT=master
+      - DAILY_COMMIT=v0.14.x
 
 language: python
 # Default Python version is usually 2.7
