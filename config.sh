@@ -12,7 +12,9 @@ function pre_build {
     # Runs in the root directory of this repository.
     # Pin wheel version that auditwheel sees.  Auditwheel current installed for
     # Python 3.6.
-    /opt/python/cp36-cp36m/bin/python -m pip install wheel==0.31.1
+    if [ -z "$IS_OSX" ]; then
+        /opt/python/cp36-cp36m/bin/python -m pip install wheel==0.31.1
+    fi
 }
 
 function pip_opts {
