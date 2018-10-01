@@ -3,4 +3,4 @@
 	url = git://github.com/scikit-image/scikit-image.git
 [submodule "multibuild"]
 	path = multibuild
-	url = https://github.com/matthew-brett/multibuild.git
+	url = https://github.com/scikit-image/multibuild.git
