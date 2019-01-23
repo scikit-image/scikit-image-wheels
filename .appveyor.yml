@@ -2,7 +2,7 @@
 # Windows
 
 environment:
-  BUILD_COMMIT: v0.14.1
+  BUILD_COMMIT: master
   REPO_DIR: scikit-image
   PKG_NAME: scikit_image
   WHEELHOUSE_UPLOADER_USERNAME: travis-worker
