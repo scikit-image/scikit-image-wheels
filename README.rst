@@ -28,8 +28,7 @@ Travis-CI and Appveyor builds the ``master`` regularly (daily/weekly), via
 <https://www.appveyor.com/docs/build-configuration/#scheduled-builds>`.
 
 Builds from the ``master`` branch upload to a Rackspace container for
-pre-releases at
-https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com
+pre-releases at http://nightly-wheels.skimage.org
 
 Builds from the release branches upload to a Rackspace container for releases
 at
@@ -95,7 +94,7 @@ Uploading the built wheels to PyPI
 ==================================
 
 * pre-releases container visible at
-  https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com
+  http://nightly-wheels.skimage.org (https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com)
 * release container visible at
   https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
 
