@@ -74,7 +74,7 @@ matrix:
         - NP_BUILD_DEP=numpy==1.12.0
         - NP_TEST_DEP=numpy==1.12.0
     - os: osx
-      langugage: generic
+      language: generic
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
@@ -89,7 +89,7 @@ before_install:
           UPLOAD_ARGS="--no-update-index";
       fi
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
-    - TEST_DEPENDS="$NP_TEST_DEP nose pytest $GEN_DEPS"
+    - TEST_DEPENDS="$NP_TEST_DEP $GEN_DEPS -r $REPO_DIR/requirements/test.txt"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
