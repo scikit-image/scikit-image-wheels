@@ -10,11 +10,7 @@ EXTRA_WHEELS_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.s
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    # Pin wheel version that auditwheel sees.  Auditwheel current installed for
-    # Python 3.6.
-    if [ -z "$IS_OSX" ]; then
-        /opt/python/cp36-cp36m/bin/python -m pip install wheel==0.31.1
-    fi
+    :
 }
 
 function pip_opts {
