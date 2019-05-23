@@ -65,7 +65,8 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        # scipy 1.3 is not comaptible with numpy 1.11
+        - NP_TEST_DEP=numpy==1.11.3 scipy==1.2.1
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
@@ -96,7 +97,8 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.5
         - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        # scipy 1.3 is not comaptible with numpy 1.11
+        - NP_TEST_DEP=numpy==1.11.3 scipy==1.2.1
     - os: osx
       language: generic
       env:
@@ -119,7 +121,7 @@ before_install:
           UPLOAD_ARGS="--no-update-index";
       fi
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
-    - TEST_DEPENDS="$NP_TEST_DEP nose pytest $GEN_DEPS"
+    - TEST_DEPENDS="$NP_TEST_DEP pytest $GEN_DEPS"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
