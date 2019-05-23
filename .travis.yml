@@ -6,7 +6,8 @@ env:
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.11.3"
       - NP_TEST_DEP="numpy==1.11.3"
-      - GEN_DEPS="matplotlib networkx scipy pillow"
+      # scipy 1.3 is req numpy 1.13.3 but we build with very old numpy
+      - GEN_DEPS="matplotlib networkx scipy==1.2.1 pillow"
       - MANYLINUX_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
@@ -65,8 +66,7 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.11.3
-        # scipy 1.3 is not comaptible with numpy 1.11
-        - NP_TEST_DEP=numpy==1.11.3 scipy==1.2.1
+        - NP_TEST_DEP=numpy==1.11.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
@@ -97,8 +97,7 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.5
         - NP_BUILD_DEP=numpy==1.11.3
-        # scipy 1.3 is not comaptible with numpy 1.11
-        - NP_TEST_DEP=numpy==1.11.3 scipy==1.2.1
+        - NP_TEST_DEP=numpy==1.11.3
     - os: osx
       language: generic
       env:
