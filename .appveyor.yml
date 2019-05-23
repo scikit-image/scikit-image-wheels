@@ -10,19 +10,19 @@ environment:
   # Encrypted to matthew-brett account, for now.
   WHEELHOUSE_UPLOADER_SECRET:
     secure: 9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
-  NP_BUILD_DEP: "numpy==1.11.3"
-  NP_TEST_DEP: "numpy==1.11.3"
+  NP_BUILD_DEP: "numpy==1.13.3"
+  NP_TEST_DEP: "numpy==1.13.3"
   DAILY_COMMIT: master
 
   matrix:
     - PYTHON: C:\Python35
     - PYTHON: C:\Python35-x64
     - PYTHON: C:\Python36
-      NP_BUILD_DEP: "numpy==1.12"
-      NP_TEST_DEP: "numpy==1.12"
+      NP_BUILD_DEP: "numpy==1.13.3"
+      NP_TEST_DEP: "numpy==1.13.3"
     - PYTHON: C:\Python36-x64
-      NP_BUILD_DEP: "numpy==1.12"
-      NP_TEST_DEP: "numpy==1.12"
+      NP_BUILD_DEP: "numpy==1.13.3"
+      NP_TEST_DEP: "numpy==1.13.3"
     - PYTHON: C:\Python37
       NP_BUILD_DEP: "numpy==1.14.5"
       NP_TEST_DEP: "numpy==1.14.5"
