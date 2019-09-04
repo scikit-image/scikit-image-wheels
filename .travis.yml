@@ -1,7 +1,7 @@
 env:
   global:
       - REPO_DIR="scikit-image"
-      - BUILD_COMMIT=v0.14.3
+      - BUILD_COMMIT=v0.14.4
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.11.3"
