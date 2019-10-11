@@ -88,7 +88,9 @@ script:
 after_success:
     # Upload wheels to Rackspace container
     - pip install wheelhouse-uploader
-    - travis_wait 40 python -m wheelhouse_uploader upload --local-folder
-          ${TRAVIS_BUILD_DIR}/wheelhouse/
+    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ];
+       then travis_wait 40 python -m wheelhouse_uploader upload
+          --local-folder ${TRAVIS_BUILD_DIR}/wheelhouse/
           $UPLOAD_ARGS
-          $CONTAINER
+          $CONTAINER;
+       fi'
