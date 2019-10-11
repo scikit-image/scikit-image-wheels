@@ -2,7 +2,7 @@ env:
   global:
       - REPO_DIR="scikit-image"
       # Also see DAILY_COMMIT below
-      - BUILD_COMMIT=v0.15.0
+      - BUILD_COMMIT=master
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.13.3"
@@ -30,17 +30,6 @@ matrix:
   include:
     - os: linux
       env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
-    - os: linux
-      env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.13.3
         - NP_TEST_DEP=numpy==1.13.3
@@ -61,12 +50,6 @@ matrix:
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.14.5
         - NP_TEST_DEP=numpy==1.14.5
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
     - os: osx
       language: generic
       env:
@@ -105,7 +88,9 @@ script:
 after_success:
     # Upload wheels to Rackspace container
     - pip install wheelhouse-uploader
-    - python -m wheelhouse_uploader upload --local-folder
-          ${TRAVIS_BUILD_DIR}/wheelhouse/
+    - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ];
+       then travis_wait 40 python -m wheelhouse_uploader upload
+          --local-folder ${TRAVIS_BUILD_DIR}/wheelhouse/
           $UPLOAD_ARGS
-          $CONTAINER
+          $CONTAINER;
+       fi'
