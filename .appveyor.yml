@@ -9,7 +9,7 @@ environment:
   # https://www.appveyor.com/docs/build-configuration/#secure-variables
   # Encrypted to matthew-brett account, for now.
   WHEELHOUSE_UPLOADER_SECRET:
-    secure: 9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
+    secure: ozQ/OF7YF5bsfSd9CKAREE1YKWQy6ucciQ7446lFcJONOBG+/yvYtpPkpv4Dqrp7
   NP_BUILD_DEP: "numpy==1.13.3"
   NP_TEST_DEP: "numpy==1.13.3"
   DAILY_COMMIT: master
