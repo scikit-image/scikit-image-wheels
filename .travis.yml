@@ -23,6 +23,11 @@ sudo: required
 dist: trusty
 services: docker
 
+notifications:
+  email:
+    recipients:
+      - jni.soma@fastmail.com
+
 matrix:
   exclude:
       # Exclude the default Python 3.5 build
