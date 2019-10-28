@@ -10,23 +10,15 @@ environment:
   # Encrypted to matthew-brett account, for now.
   WHEELHOUSE_UPLOADER_SECRET:
     secure: ozQ/OF7YF5bsfSd9CKAREE1YKWQy6ucciQ7446lFcJONOBG+/yvYtpPkpv4Dqrp7
-  NP_BUILD_DEP: "numpy==1.13.3"
-  NP_TEST_DEP: "numpy==1.13.3"
+  NP_BUILD_DEP: "numpy==1.14.5"
+  NP_TEST_DEP: "numpy==1.14.5"
   DAILY_COMMIT: master
 
   matrix:
     - PYTHON: C:\Python36
-      NP_BUILD_DEP: "numpy==1.13.3"
-      NP_TEST_DEP: "numpy==1.13.3"
     - PYTHON: C:\Python36-x64
-      NP_BUILD_DEP: "numpy==1.13.3"
-      NP_TEST_DEP: "numpy==1.13.3"
     - PYTHON: C:\Python37
-      NP_BUILD_DEP: "numpy==1.14.5"
-      NP_TEST_DEP: "numpy==1.14.5"
     - PYTHON: C:\Python37-x64
-      NP_BUILD_DEP: "numpy==1.14.5"
-      NP_TEST_DEP: "numpy==1.14.5"
 
 init:
   - "ECHO \"%APPVEYOR_SCHEDULED_BUILD%\""

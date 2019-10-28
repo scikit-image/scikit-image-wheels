@@ -5,8 +5,8 @@ env:
       - BUILD_COMMIT=master
       - PLAT=x86_64
       - UNICODE_WIDTH=32
-      - NP_BUILD_DEP="numpy==1.13.3"
-      - NP_TEST_DEP="numpy==1.13.3"
+      - NP_BUILD_DEP="numpy==1.14.5"
+      - NP_TEST_DEP="numpy==1.14.5"
       - GEN_DEPS="matplotlib networkx scipy pillow"
       - MANYLINUX_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
@@ -36,37 +36,25 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.13.3
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
