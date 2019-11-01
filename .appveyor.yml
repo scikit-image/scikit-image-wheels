@@ -52,7 +52,7 @@ install:
   - curl https://raw.githubusercontent.com/chemeris/msinttypes/master/stdint.h -o skimage/external/tifffile/stdint.h"
 
   # Install the build dependencies of the project.
-  - pip install %NP_TEST_DEP%
+  - pip install %NP_BUILD_DEP%
   - pip install -r requirements\build.txt
   - python setup.py bdist_wheel
   - ps: |
