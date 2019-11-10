@@ -42,6 +42,17 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - NP_BUILD_DEP: "numpy==1.17.3"
+        - NP_TEST_DEP: "numpy==1.17.3"
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - PLAT=i686
+        - NP_BUILD_DEP: "numpy==1.17.3"
+        - NP_TEST_DEP: "numpy==1.17.3"
     - os: osx
       language: generic
       env:
@@ -50,6 +61,23 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - MB_PYTHON_OSX_VER=10.9
+        - NP_BUILD_DEP: "numpy==1.17.3"
+        - NP_TEST_DEP: "numpy==1.17.3"
+  allow_failures:
+    # Matplotlib is failing to release 32 bit wheels for linux.
+    # This makes it difficult for us to compile.
+    # https://github.com/MacPython/matplotlib-wheels/pull/9
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - PLAT=i686
+        - NP_BUILD_DEP: "numpy==1.17.3"
+        - NP_TEST_DEP: "numpy==1.17.3"
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
