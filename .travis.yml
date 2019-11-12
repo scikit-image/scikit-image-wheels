@@ -52,12 +52,14 @@ matrix:
         - MB_PYTHON_VERSION=3.8
         - NP_BUILD_DEP: "numpy==1.17.3"
         - NP_TEST_DEP: "numpy==1.17.3"
+        - PIP_FLAGS: "--pre"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
         - PLAT=i686
         - NP_BUILD_DEP: "numpy==1.17.3"
         - NP_TEST_DEP: "numpy==1.17.3"
+        - PIP_FLAGS: "--pre"
     - os: osx
       language: generic
       env:
@@ -72,6 +74,7 @@ matrix:
         - MB_PYTHON_VERSION=3.8
         - NP_BUILD_DEP: "numpy==1.17.3"
         - NP_TEST_DEP: "numpy==1.17.3"
+        - PIP_FLAGS: "--pre"
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
