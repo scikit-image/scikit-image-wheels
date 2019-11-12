@@ -12,6 +12,7 @@ environment:
     secure: ozQ/OF7YF5bsfSd9CKAREE1YKWQy6ucciQ7446lFcJONOBG+/yvYtpPkpv4Dqrp7
   NP_BUILD_DEP: "numpy==1.14.5"
   NP_TEST_DEP: "numpy==1.14.5"
+  PIP_FLAGS: ""
   DAILY_COMMIT: master
 
   matrix:
@@ -22,9 +23,11 @@ environment:
     - PYTHON: C:\Python38
       NP_BUILD_DEP: "numpy==1.17.3"
       NP_TEST_DEP: "numpy==1.17.3"
+      PIP_FLAGS: "--pre"
     - PYTHON: C:\Python38-x64
       NP_BUILD_DEP: "numpy==1.17.3"
       NP_TEST_DEP: "numpy==1.17.3"
+      PIP_FLAGS: "--pre"
 
 init:
   - "ECHO \"%APPVEYOR_SCHEDULED_BUILD%\""
@@ -58,8 +61,8 @@ install:
   - curl https://raw.githubusercontent.com/chemeris/msinttypes/master/stdint.h -o skimage/external/tifffile/stdint.h"
 
   # Install the build dependencies of the project.
-  - pip install %NP_BUILD_DEP%
-  - pip install -r requirements\build.txt
+  - pip install %PIP_FLAGS% %NP_BUILD_DEP%
+  - pip install %PIP_FLAGS% -r requirements\build.txt
   - python setup.py bdist_wheel
   - ps: |
       # Upload artifact to Appveyor immediately after build
@@ -74,8 +77,8 @@ build: false
 
 test_script:
   # Install the test / runtime dependencies
-  - pip install %NP_TEST_DEP%
-  - pip install -r %REPO_DIR%\requirements.txt
+  - pip install %PIP_FLAGS% %NP_TEST_DEP%
+  - pip install %PIP_FLAGS% -r %REPO_DIR%\requirements.txt
   # Install the generated wheel package to test it
   - pip install --pre --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
   # Change into an innocuous directory and find tests from installation
