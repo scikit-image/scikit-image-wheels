@@ -15,7 +15,7 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL" 
+    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL ${PIP_FLAGS}" 
 }
 
 function build_wheel {
