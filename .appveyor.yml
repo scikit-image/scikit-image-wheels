@@ -74,8 +74,8 @@ build: false
 
 test_script:
   # Install the test / runtime dependencies
-  - pip install %PIP_FLAGS% %NP_TEST_DEP%
-  - pip install %PIP_FLAGS% -r %REPO_DIR%\requirements.txt
+  - pip install %NP_TEST_DEP%
+  - pip install -r %REPO_DIR%\requirements.txt
   # Install the generated wheel package to test it
   - pip install --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
   # Change into an innocuous directory and find tests from installation
