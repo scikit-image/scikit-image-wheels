@@ -15,13 +15,7 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL" 
-}
-
-function build_wheel {
-    # Horrible set of build requirements installs too-recent numpy when using
-    # default pip wheel command
-    build_bdist_wheel $@
+    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL"
 }
 
 function run_tests {
