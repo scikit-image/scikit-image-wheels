@@ -74,7 +74,7 @@ matrix:
         - NP_TEST_DEP: "numpy==1.17.3"
   allow_failures:
     # Matplotlib is failing to release 32 bit wheels for linux.
-    # This means it is super hard for us to compile things ourselves.
+    # This makes it difficult for us to compile.
     # https://github.com/MacPython/matplotlib-wheels/pull/9
     - os: linux
       env:
