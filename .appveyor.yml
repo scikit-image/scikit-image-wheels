@@ -77,7 +77,7 @@ test_script:
   - pip install %NP_TEST_DEP%
   - pip install -r %REPO_DIR%\requirements.txt
   # Install the generated wheel package to test it
-  - pip install --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
+  - pip install --pre --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
   # Change into an innocuous directory and find tests from installation
   - mkdir for_testing
   - cd for_testing
