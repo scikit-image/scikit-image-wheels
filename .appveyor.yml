@@ -17,7 +17,7 @@ environment:
   # empty string. If there is a problem releasing wheels and a new build
   # must be uploaded, then "--build-number <some number>" can be set
   # https://github.com/MacPython/wiki/wiki/Build-Tags
-  BDIST_WHEEL_ARGS: "--build-number 1"
+  BDIST_WHEEL_ARGS: ""
 
   matrix:
     - PYTHON: C:\Python36
