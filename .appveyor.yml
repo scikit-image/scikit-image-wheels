@@ -38,6 +38,10 @@ init:
       }
 
 install:
+  # for some reason, we were running on the devel branch. It may be necessary for python 3.8
+  # https://github.com/MacPython/cython-wheels/pull/1
+  - git clone --depth 1 --branch devel https://github.com/matthew-brett/multibuild.git
+  - git clone --depth 1 --branch %BUILD_COMMIT% https://github.com/scikit-image/scikit-image.git
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).

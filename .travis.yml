@@ -92,6 +92,9 @@ before_install:
           CONTAINER=wheels;
           UPLOAD_ARGS="--no-update-index";
       fi
+    # The devel branch seems necessary for python 3.8 on OSX
+    - git clone --depth 1 --branch devel https://github.com/matthew-brett/multibuild.git
+    - git clone --depth 1 --branch $BUILD_COMMIT https://github.com/scikit-image/scikit-image.git
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
     - TEST_DEPENDS="$NP_TEST_DEP $GEN_DEPS -r $REPO_DIR/requirements/test.txt"
     - source multibuild/common_utils.sh
