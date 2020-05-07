@@ -13,7 +13,7 @@ env:
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure: "PjnpdJj6BrEmiQO+Kq79wd/HGcn0hpIqkS5TcR/rnU6X6shrN6qnKXtM2oa94HLwi+Qus+c9RfBmu+zflqzh357SkmdF3Jwj36OzC2G6i6QEQGdDecr2RE8qBy2FwwkNDsxVPxduNMrWzejpWmeZt8j+qKbz2p2bwmUJmht0XqE="
-      # Commit when running from daily branch
+      # Commit when running from daily branch 
       - DAILY_COMMIT=master
 
 language: python
