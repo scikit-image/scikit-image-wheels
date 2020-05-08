@@ -13,6 +13,11 @@ environment:
   NP_BUILD_DEP: "numpy==1.14.5"
   NP_TEST_DEP: "numpy==1.14.5"
   DAILY_COMMIT: master
+  # Unless there is a problem in releasing wheels, this should be set to an
+  # empty string. If there is a problem releasing wheels and a new build
+  # must be uploaded, then "--build-number <some number>" can be set
+  # https://github.com/MacPython/wiki/wiki/Build-Tags
+  BDIST_WHEEL_ARGS: ""
 
   matrix:
     - PYTHON: C:\Python36
@@ -64,7 +69,7 @@ install:
   # Install the build dependencies of the project.
   - pip install %NP_BUILD_DEP%
   - pip install -r requirements\build.txt
-  - python setup.py bdist_wheel
+  - python setup.py bdist_wheel  %BDIST_WHEEL_ARGS%
   - ps: |
       # Upload artifact to Appveyor immediately after build
       ls dist -r | Foreach-Object {
