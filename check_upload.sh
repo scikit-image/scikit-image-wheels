@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to download / check and upload scikit_image wheels for release
-RACKSPACE_URL=http://a365fff413fe338398b6-1c8a9b3114517dc5fe17b7c3f8c63a43.r19.cf2.rackcdn.com
+ANACONDA_URL=https://pypi.anaconda.org/multibuild-wheels-staging/label/main/simple/scikit-image
 if [ "`which twine`" == "" ]; then
     echo "twine not on path; need to pip install twine?"
     exit 1
@@ -19,7 +19,7 @@ rm -rf *.whl
 for py_tag in cp27-none cp33-cp33m cp34-cp34m
 do
     wheel_name="$WHEEL_HEAD-$py_tag-$WHEEL_TAIL"
-    wheel_url="${RACKSPACE_URL}/${wheel_name}"
+    wheel_url="${ANACONDA_URL}/${wheel_name}"
     curl -O $wheel_url
     if [ "$?" != "0" ]; then
         echo "Failed downloading $wheel_url; check travis build?"
