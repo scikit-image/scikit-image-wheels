@@ -4,7 +4,6 @@
 # Extra wheels points to directory with manylinux wheels not available on
 # pypi.
 export STAGING_WHEELS_URL="https://pypi.anaconda.org/multibuild-wheels-staging/label/main/simple/"
-export NIGHTLY_WHEELS_URL="https://pypi.anaconda.org/scipy-wheels-nightly/label/main/simple/"
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
@@ -14,7 +13,7 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    echo "--prefer-binary --extra-index-url $STAGING_WHEELS_URL  --extra-index-url $NIGHTLY_WHEELS_URL"
+    echo "--prefer-binary --extra-index-url $STAGING_WHEELS_URL"
 }
 
 function run_tests {
