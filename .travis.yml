@@ -67,10 +67,10 @@ matrix:
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-          ANACONDA_ORG="scipy-wheels-nightly"
+          ANACONDA_ORG="scipy-wheels-nightly";
           BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
       else
-          ANACONDA_ORG="multibuild-wheels-staging"
+          ANACONDA_ORG="multibuild-wheels-staging";
       fi
     # The devel branch seems necessary for python 3.8 on OSX
     - git clone --depth 1 --branch devel https://github.com/matthew-brett/multibuild.git
