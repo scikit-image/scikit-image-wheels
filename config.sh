@@ -2,10 +2,9 @@
 # Test for OSX with [ -n "$IS_OSX" ]
 
 # Extra wheels points to directory with manylinux wheels not available on
-# pypi.  For example, matplotlib does not distribute 32-bit wheels, but we
-# build and upload these via the 32-bit-builds branch of
-# https://github.com/MacPython/matplotlib-wheels
-EXTRA_WHEELS_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
+# pypi.
+export STAGING_WHEELS_URL="https://pypi.anaconda.org/multibuild-wheels-staging/label/main/simple/"
+export NIGHTLY_WHEELS_URL="https://pypi.anaconda.org/scipy-wheels-nightly/label/main/simple/"
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
@@ -15,7 +14,7 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL"
+    echo "--prefer-binary --extra-index-url $STAGING_WHEELS_URL  --extra-index-url $NIGHTLY_WHEELS_URL"
 }
 
 function run_tests {
