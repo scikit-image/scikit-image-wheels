@@ -95,7 +95,8 @@ on_success:
   # PYWAVELETS_STAGING_UPLOAD_TOKEN is an encrypted variable
   # used in Appveyor CI config, originally created at
   # multibuild-wheels-staging site
-  - cd ..\scikit-image
+  - dir
+  - cd scikit-image
   - pip install git+https://github.com/Anaconda-Server/anaconda-client
   - IF NOT "%SKIMAGE_STAGING_UPLOAD_TOKEN%" == "" anaconda -t %SKIMAGE_STAGING_UPLOAD_TOKEN% upload --force -u %ANACONDA_ORG% "dist\*.whl"
 
