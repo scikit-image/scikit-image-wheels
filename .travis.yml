@@ -93,6 +93,8 @@ after_success:
     # multibuild-wheels-staging site
     - pip install git+https://github.com/Anaconda-Server/anaconda-client;
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
+          source extra_functions.sh;
+          for f in wheelhouse/*.whl; do rename_wheel $f; done;
           ANACONDA_ORG="scipy-wheels-nightly";
           TOKEN=${SKIMAGE_NIGHTLY_UPLOAD_TOKEN};
       else
