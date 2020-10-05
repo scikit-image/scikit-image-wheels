@@ -67,10 +67,7 @@ matrix:
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-          ANACONDA_ORG="scipy-wheels-nightly";
           BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
-      else
-          ANACONDA_ORG="multibuild-wheels-staging";
       fi
     # The devel branch seems necessary for python 3.8 on OSX
     - git clone --depth 1 --branch devel https://github.com/matthew-brett/multibuild.git
@@ -94,8 +91,14 @@ after_success:
     # SKIMAGE_STAGING_UPLOAD_TOKEN is an encrypted variable
     # used in Appveyor CI config, originally created at
     # multibuild-wheels-staging site
-    - TOKEN=${SKIMAGE_STAGING_UPLOAD_TOKEN};
     - pip install git+https://github.com/Anaconda-Server/anaconda-client;
+    - if [ "$TRAVIS_BRANCH" == "master" ]; then
+          ANACONDA_ORG="scipy-wheels-nightly";
+          TOKEN=${SKIMAGE_NIGHTLY_UPLOAD_TOKEN};
+      else
+          ANACONDA_ORG="multibuild-wheels-staging";
+          TOKEN=${SKIMAGE_STAGING_UPLOAD_TOKEN};
+      fi
     - if [ -n "${TOKEN}" ] ; then
         anaconda -t ${TOKEN} upload -u ${ANACONDA_ORG} ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl;
       fi
