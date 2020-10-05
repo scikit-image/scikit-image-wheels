@@ -32,9 +32,11 @@ init:
   - ps: >-
       if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
         $env:ANACONDA_ORG = "scipy-wheels-nightly"
+        $env:UPLOAD_TOKEN = $env:SKIMAGE_NIGHTLY_UPLOAD_TOKEN
         if ($env:DAILY_COMMIT) { $env:BUILD_COMMIT = $env:DAILY_COMMIT }
       } else {
         $env:ANACONDA_ORG = "multibuild-wheels-staging"
+        $env:UPLOAD_TOKEN = $env:SKIMAGE_STAGING_UPLOAD_TOKEN
       }
 
 install:
@@ -97,7 +99,7 @@ on_success:
   # multibuild-wheels-staging site
   - cd scikit-image
   - pip install git+https://github.com/Anaconda-Server/anaconda-client
-  - IF NOT "%SKIMAGE_STAGING_UPLOAD_TOKEN%" == "" anaconda -t %SKIMAGE_STAGING_UPLOAD_TOKEN% upload --force -u %ANACONDA_ORG% "dist\*.whl"
+  - IF NOT "%UPLOAD_TOKEN%" == "" anaconda -t %UPLOAD_TOKEN% upload --force -u %ANACONDA_ORG% "dist\*.whl"
 
 cache:
   # Avoid re-downloading large packages
