@@ -8,11 +8,6 @@ env:
       - NP_BUILD_DEP="numpy==1.14.5"
       - NP_TEST_DEP="numpy==1.14.5"
       - GEN_DEPS="matplotlib networkx scipy pillow"
-      - MANYLINUX_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.ssl.cf2.rackcdn.com
-      - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
-      # Following generated with
-      # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
-      - secure: "PjnpdJj6BrEmiQO+Kq79wd/HGcn0hpIqkS5TcR/rnU6X6shrN6qnKXtM2oa94HLwi+Qus+c9RfBmu+zflqzh357SkmdF3Jwj36OzC2G6i6QEQGdDecr2RE8qBy2FwwkNDsxVPxduNMrWzejpWmeZt8j+qKbz2p2bwmUJmht0XqE="
       # Commit when running from daily branch
       - DAILY_COMMIT=master
 
@@ -72,11 +67,10 @@ matrix:
 
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
-          CONTAINER="pre-release";
+          ANACONDA_ORG="scipy-wheels-nightly";
           BUILD_COMMIT=${DAILY_COMMIT:-$BUILD_COMMIT};
       else
-          CONTAINER=wheels;
-          UPLOAD_ARGS="--no-update-index";
+          ANACONDA_ORG="multibuild-wheels-staging";
       fi
     # The devel branch seems necessary for python 3.8 on OSX
     - git clone --depth 1 --branch devel https://github.com/matthew-brett/multibuild.git
@@ -96,9 +90,12 @@ script:
     - install_run $PLAT
 
 after_success:
-    # Upload wheels to Rackspace container
-    - pip install wheelhouse-uploader
-    - travis_wait 40 python -m wheelhouse_uploader upload
-          --local-folder ${TRAVIS_BUILD_DIR}/wheelhouse/
-          $UPLOAD_ARGS
-          $CONTAINER
+    # Upload the generated wheel package to anaconda.org
+    # SKIMAGE_STAGING_UPLOAD_TOKEN is an encrypted variable
+    # used in Appveyor CI config, originally created at
+    # multibuild-wheels-staging site
+    - TOKEN=${SKIMAGE_STAGING_UPLOAD_TOKEN};
+    - pip install git+https://github.com/Anaconda-Server/anaconda-client;
+    - if [ -n "${TOKEN}" ] ; then
+        anaconda -t ${TOKEN} upload -u ${ANACONDA_ORG} ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl;
+      fi
