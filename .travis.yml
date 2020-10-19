@@ -39,6 +39,42 @@ matrix:
         - MB_PYTHON_VERSION=3.8
         - NP_BUILD_DEP: "numpy==1.17.3"
         - NP_TEST_DEP: "numpy==1.17.3"
+    - os: linux
+      arch: arm64-graviton2
+      dist: focal
+      virt: vm
+      group: edge
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - MB_ML_VER=2014
+        - PLAT=aarch64
+        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+        - NP_BUILD_DEP="numpy==1.19.2"
+        - NP_TEST_DEP="numpy==1.19.2"
+    - os: linux
+      arch: arm64-graviton2
+      dist: focal
+      virt: vm
+      group: edge
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - MB_ML_VER=2014
+        - PLAT=aarch64
+        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+        - NP_BUILD_DEP="numpy==1.19.2"
+        - NP_TEST_DEP="numpy==1.19.2"
+    - os: linux
+      arch: arm64-graviton2
+      dist: focal
+      virt: vm
+      group: edge
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - MB_ML_VER=2014
+        - PLAT=aarch64
+        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+        - NP_BUILD_DEP="numpy==1.19.2"
+        - NP_TEST_DEP="numpy==1.19.2"
     - os: osx
       language: generic
       env:
